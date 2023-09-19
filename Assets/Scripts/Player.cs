@@ -7,25 +7,29 @@ public class Player : MonoBehaviour
 {
     [Header("플레이어스텟")]
     [SerializeField] private float m_Speed;
-    [SerializeField] private int m_MaxHp = 10;
-    [SerializeField] private int m_Attack = 1;
+    [SerializeField] private int m_MaxHp = 100;
+    [SerializeField] private int m_Attack = 10;
+    private int m_curHp;
 
-    private Transform trsHands;
+    [Header("플레이어공격")]
+    [SerializeField]private Transform trsHands;
 
         
     void Start()
     {
-        
+        trsHands.localEulerAngles = Vector3.zero;
     }
 
     
     void Update()
     {
         moving();
-        
+        attack();
+
+
     }
 
-    private void moving()
+    private void moving() // 플레이어 수동움직임
     {
         float move_x = Input.GetAxisRaw("Horizontal") * Time.deltaTime; //입력키 설정
         float move_y = Input.GetAxisRaw("Vertical") * Time.deltaTime;
@@ -42,8 +46,15 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void attack()
+    private void attack() // 플레이어 수동공격
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            trsHands.localEulerAngles = new Vector3(0, 0, -50.0f);        
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            trsHands.localEulerAngles = Vector3.zero;
+        }
     }
 }
