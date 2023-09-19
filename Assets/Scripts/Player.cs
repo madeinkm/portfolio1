@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
     [Header("플레이어스텟")]
     [SerializeField] private float m_Speed;
     [SerializeField] private int m_MaxHp = 100;
-    [SerializeField] private int m_Attack = 10;
     private int m_curHp;
 
     [Header("플레이어공격")]

@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
         coll = GetComponent<PolygonCollider2D>();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         moving();
@@ -52,6 +52,11 @@ public class Enemy : MonoBehaviour
 
         float move_x = (playerPos.x - transform.position.x);
         float move_y = (playerPos.y - transform.position.y);
+        if (move_x < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+
         transform.position += new Vector3( move_x , move_y ,0) * enemyspeed * Time.deltaTime;
 
     }
