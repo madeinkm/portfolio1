@@ -47,6 +47,4 @@ public class PlayerHp : MonoBehaviour
     { 
         HpFront.fillAmount = (float)_curHp / _maxHp;
     }
-
-
 }

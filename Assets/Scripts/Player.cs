@@ -5,20 +5,36 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Animator anim;
-
+    
     [Header("플레이어스텟")]
-    [SerializeField] private float m_Speed;
-    [SerializeField] private int m_MaxHp = 100;
+    [SerializeField] private float m_speed = 5.0f;
+    [SerializeField] private int m_maxHp = 100;
     private int m_curHp;
 
     [Header("플레이어공격")]
     [SerializeField]private Transform trsHands;
 
-        
+    [Header("Hp연출")]
+    [SerializeField] private PlayerHp playerHp;
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Enemy sc = collision.GetComponent<Enemy>();
+            int damage = sc.getdamge();
+            Hit(damage);
+        }
+    }
+
     void Start()
     {
         trsHands.localEulerAngles = Vector3.zero;
         anim = GetComponent<Animator>();
+
+        m_curHp = m_maxHp;
+        playerHp.SetPlayerHp(m_curHp, m_maxHp);
     }
 
     
@@ -28,13 +44,25 @@ public class Player : MonoBehaviour
         attack();
         doanim();
     }
+    public void Hit(int _damage)
+    {
+        m_curHp -= _damage;
+        playerHp.SetPlayerHp(m_curHp, m_maxHp);
+
+        if (m_curHp <= 0)
+        {
+            Destroy(gameObject);
+            //GAME OVER 되는 코드 작성 예정. 묘비 애니메이션 동작 예정.
+        }
+
+    }
 
     private void moving() // 플레이어 수동움직임
     {
         float move_x = Input.GetAxisRaw("Horizontal") * Time.deltaTime; //입력키 설정
         float move_y = Input.GetAxisRaw("Vertical") * Time.deltaTime;
 
-        transform.position += new Vector3(move_x, move_y) * m_Speed;
+        transform.position += new Vector3(move_x, move_y) * m_speed;
 
         if (move_x > 0) // 입력 방향에 따른 캐릭터 방향설정
         {
@@ -63,5 +91,5 @@ public class Player : MonoBehaviour
         float move_y = Input.GetAxisRaw("Vertical");
         anim.SetInteger("move_x", (int)move_x);
         anim.SetInteger("move_y", (int)move_y);        
-    }
+    }    
 }

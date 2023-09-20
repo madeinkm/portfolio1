@@ -21,6 +21,8 @@ public class Enemy : MonoBehaviour
     [Header("Àû½ºÅÝ")]
     [SerializeField] private float enemyhp = 5.0f;
     [SerializeField] private float enemyspeed = 1.0f;
+    [SerializeField] private int enemydamage = 5;
+    
 
     private Transform trsplayer;
     
@@ -34,7 +36,6 @@ public class Enemy : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         coll = GetComponent<PolygonCollider2D>();
     }
-
     
     void Update()
     {
@@ -64,4 +65,9 @@ public class Enemy : MonoBehaviour
         transform.position += new Vector3( move_x , move_y ,0) * enemyspeed * Time.deltaTime;
 
     }
+    public int getdamge()
+    {
+        return enemydamage;
+    }
+
 }
