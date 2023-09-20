@@ -56,6 +56,10 @@ public class Enemy : MonoBehaviour
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
+        else if (move_x > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
 
         transform.position += new Vector3( move_x , move_y ,0) * enemyspeed * Time.deltaTime;
 

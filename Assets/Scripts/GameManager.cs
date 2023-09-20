@@ -24,11 +24,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        //checkspwan = trsDynamicObject.childCount;
-        if (checkSpwan < checkSpawnLimit)
-        { 
-            spawnEnmemy();
-        }
+        //checkspwan = trsDynamicObject.childCount;              
+        spawnEnmemy();
 
     }
 
@@ -40,16 +37,19 @@ public class GameManager : MonoBehaviour
 
     private void spawnEnmemy() //몬스터 생성
     {
-        int iRand = Random.Range(0, listEnemy.Count);
-        GameObject objEnemy = listEnemy[iRand];
+        if(checkSpwan < checkSpawnLimit)
+        {
+            int iRand = Random.Range(0, listEnemy.Count);
+            GameObject objEnemy = listEnemy[iRand];
 
-        float fRand_x = Random.Range(-7.0f, 7.0f); // 몬스터 랜덤 X 위치
-        float fRand_y = Random.Range(-4.0f, 4.0f); // 몬스터 랜덤 Y 위치
-        Vector3 spawnPosition = spawnPoint.position;
-        spawnPosition.x += fRand_x;
-        spawnPosition.y += fRand_y;
+            float fRand_x = Random.Range(-7.0f, 7.0f); // 몬스터 랜덤 X 위치
+            float fRand_y = Random.Range(-4.0f, 4.0f); // 몬스터 랜덤 Y 위치
+            Vector3 spawnPosition = spawnPoint.position;
+            spawnPosition.x += fRand_x;
+            spawnPosition.y += fRand_y;
 
-        GameObject obj = Instantiate(objEnemy, spawnPosition, Quaternion.identity, trsDynamicObject);
+            GameObject obj = Instantiate(objEnemy, spawnPosition, Quaternion.identity, trsDynamicObject);
+        }        
         checkSpwan++;
     }
 }

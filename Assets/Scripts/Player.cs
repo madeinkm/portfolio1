@@ -1,10 +1,11 @@
  using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private Animator anim;
+
     [Header("플레이어스텟")]
     [SerializeField] private float m_Speed;
     [SerializeField] private int m_MaxHp = 100;
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         trsHands.localEulerAngles = Vector3.zero;
+        anim = GetComponent<Animator>();
     }
 
     
@@ -24,8 +26,7 @@ public class Player : MonoBehaviour
     {
         moving();
         attack();
-
-
+        doanim();
     }
 
     private void moving() // 플레이어 수동움직임
@@ -55,5 +56,12 @@ public class Player : MonoBehaviour
         {
             trsHands.localEulerAngles = Vector3.zero;
         }
+    }
+    private void doanim()
+    {
+        float move_x = Input.GetAxisRaw("Horizontal");
+        float move_y = Input.GetAxisRaw("Vertical");
+        anim.SetInteger("move_x", (int)move_x);
+        anim.SetInteger("move_y", (int)move_y);        
     }
 }

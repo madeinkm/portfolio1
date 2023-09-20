@@ -8,18 +8,26 @@ public class PlayerHp : MonoBehaviour
     private Image HpBack;
     private Image HpFront;
 
+    private Transform trsPlayer;
+
     private void Awake()
     {
         HpBack = transform.GetChild(1).GetComponent<Image>();
         HpFront = transform.GetChild(2).GetComponent<Image>();
-    }
+        trsPlayer = FindObjectOfType<Player>().transform;
+}
 
     void Update()
     {
-        CheckHpBar();
-        
+        checkPosition();
+        checkHpBar();        
+
     }
-    private void CheckHpBar()
+    private void checkPosition()
+    {
+        transform.position = trsPlayer.position + new Vector3(-8.0f, 5.0f, 0);
+    }
+    private void checkHpBar()
     {
         if (HpFront.fillAmount < HpBack.fillAmount)// HP가 깎이면 HP바가 줄어들고 그 뒤 연출도 같이 줄어듬
         {
@@ -34,4 +42,11 @@ public class PlayerHp : MonoBehaviour
             HpBack.fillAmount = HpFront.fillAmount;
         }
     }
+
+    public void SetPlayerHp(int _curHp, int _maxHp)
+    { 
+        HpFront.fillAmount = (float)_curHp / _maxHp;
+    }
+
+
 }
