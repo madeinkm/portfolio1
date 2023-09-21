@@ -17,13 +17,13 @@ public class Player : MonoBehaviour
     [Header("Hpø¨√‚")]
     [SerializeField] private PlayerHp playerHp;
 
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
             Enemy sc = collision.GetComponent<Enemy>();
-            int damage = sc.getdamge();
+            int damage = sc.GetDamge();
             Hit(damage);
         }
     }

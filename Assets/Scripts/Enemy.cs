@@ -19,9 +19,9 @@ public class Enemy : MonoBehaviour
     private PolygonCollider2D coll;
 
     [Header("Àû½ºÅÝ")]
-    [SerializeField] private float enemyhp = 5.0f;
-    [SerializeField] private float enemyspeed = 1.0f;
-    [SerializeField] private int enemydamage = 5;
+    [SerializeField] private float enemyHp = 5.0f;
+    [SerializeField] private float enemySpeed = 1.0f;
+    [SerializeField] private int enemyDamage = 5;
     
 
     private Transform trsplayer;
@@ -62,12 +62,12 @@ public class Enemy : MonoBehaviour
             transform.localScale = new Vector3(1, 1, 1);
         }
 
-        transform.position += new Vector3( move_x , move_y ,0) * enemyspeed * Time.deltaTime;
+        transform.position += new Vector3( move_x , move_y ,0) * enemySpeed * Time.deltaTime;
 
     }
-    public int getdamge()
+    public int GetDamge()
     {
-        return enemydamage;
+        return enemyDamage;
     }
 
 }
