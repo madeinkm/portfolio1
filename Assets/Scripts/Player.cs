@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             Enemy sc = collision.GetComponent<Enemy>();
-            int damage = sc.GetDamge();
+            int damage = sc.GetEnemyDamage();
             Hit(damage);
         }
     }

@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7852868978850354930
 SpriteRenderer:
@@ -122,8 +122,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 0
-  enemyhp: 5
-  enemyspeed: 0.1
+  enemyHp: 5
+  enemySpeed: 0.1
+  enemyDamage: 1
 --- !u!50 &6773747206293545199
 Rigidbody2D:
   serializedVersion: 4
@@ -195,9 +196,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.27656794, y: 0.3796904}
-      - {x: -0.34531593, y: -0.31154734}
-      - {x: -0.18663815, y: -0.4140644}
-      - {x: 0.18663815, y: -0.48281288}
-      - {x: 0.24679306, y: 0.38828397}
+    - - {x: -0.23275518, y: 0.44979048}
+      - {x: -0.34264517, y: 0.33595037}
+      - {x: -0.39496994, y: -0.2881809}
+      - {x: -0.22460917, y: -0.50461006}
+      - {x: 0.23337153, y: -0.5032587}
+      - {x: 0.33793783, y: -0.057067394}
+      - {x: 0.34180307, y: 0.33215094}
+      - {x: 0.23218897, y: 0.4525423}
   m_UseDelaunayMesh: 0

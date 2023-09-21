@@ -15,32 +15,51 @@ public class Enemy : MonoBehaviour
     }
 
     [SerializeField] private EnemyType enemyType;
-    private Rigidbody2D rigid;
-    private PolygonCollider2D coll;
+
+    [SerializeField] Sprite[] arrSprite;
+    private SpriteRenderer Sr;
 
     [Header("적스텟")]
     [SerializeField] private float enemyHp = 5.0f;
     [SerializeField] private float enemySpeed = 1.0f;
-    [SerializeField] private int enemyDamage = 5;
+    [SerializeField] private int enemyDamage = 1;
     
-
     private Transform trsplayer;
     
+
+
+
     private void Awake()
     {
+        Sr = GetComponent<SpriteRenderer>();
         trsplayer = FindObjectOfType<Player>().transform;
     }
 
     void Start()
     {
-        rigid = GetComponent<Rigidbody2D>();
-        coll = GetComponent<PolygonCollider2D>();
+        
     }
     
     void Update()
     {
         moving();
        
+    }
+    public void EnemyHit(float _damage)
+    {
+        enemyHp -= _damage;
+
+        if (enemyHp <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+        else
+        {
+            Sr.sprite = arrSprite[1];
+            Invoke("defaultSprite", 0.1f);
+        }
+
     }
     private void moving() //적움직임, 플레이어에게 다가감
     {
@@ -62,12 +81,15 @@ public class Enemy : MonoBehaviour
             transform.localScale = new Vector3(1, 1, 1);
         }
 
-        transform.position += new Vector3( move_x , move_y ,0) * enemySpeed * Time.deltaTime;
+        float distance = Vector3.Distance(transform.position, playerPos);
 
+        if (distance > 1)
+        {
+            transform.position += new Vector3( move_x , move_y ,0) * enemySpeed * Time.deltaTime;
+        }
     }
-    public int GetDamge()
+    public int GetEnemyDamage()
     {
         return enemyDamage;
     }
-
 }
