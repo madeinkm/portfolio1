@@ -19,13 +19,14 @@ public class PlayerHp : MonoBehaviour
 
     void Update()
     {
+        checkPosition();
         checkHpBar();        
 
     }
-    //private void checkPosition() // 캔버스에서 screenSpace - Overlay를 사용하여 위치 고정하는것으로 변경
-    //{
-    //    transform.position = trsPlayer.position + new Vector3(-8.0f, 5.0f, 0);
-    //}
+    private void checkPosition()
+    {
+        transform.position = trsPlayer.position + new Vector3(-8.0f, 5.0f, 0);
+    }
     private void checkHpBar()
     {
         if (HpFront.fillAmount < HpBack.fillAmount)// HP가 깎이면 HP바가 줄어들고 그 뒤 연출도 같이 줄어듬

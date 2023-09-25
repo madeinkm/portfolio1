@@ -15,23 +15,19 @@ public class Enemy : MonoBehaviour
     }
 
     [SerializeField] private EnemyType enemyType;
-
-    [SerializeField] Sprite[] arrSprite;
-    private SpriteRenderer Sr;
+    private Rigidbody2D rigid;
+    private PolygonCollider2D coll;
 
     [Header("적스텟")]
     [SerializeField] private float enemyHp = 5.0f;
     [SerializeField] private float enemySpeed = 1.0f;
-    [SerializeField] private int enemyDamage = 1;
+    [SerializeField] private int enemyDamage = 5;
     
+
     private Transform trsplayer;
     
-
-
-
     private void Awake()
     {
-        Sr = GetComponent<SpriteRenderer>();
         trsplayer = FindObjectOfType<Player>().transform;
     }
 
@@ -39,11 +35,24 @@ public class Enemy : MonoBehaviour
     {
         
     }
-    
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Weapon")
+    //    {
+    //        Weapon sc = collision.GetComponent<Weapon>();
+    //        float damage = sc.WeaponDamage();
+    //        EnemyHit(damage);
+    //    }
+    //}
+
     void Update()
     {
         moving();
        
+    }
+    public int GetDamge()
+    {
+        return enemyDamage;
     }
     public void EnemyHit(float _damage)
     {
@@ -52,12 +61,7 @@ public class Enemy : MonoBehaviour
         if (enemyHp <= 0)
         {
             Destroy(gameObject);
-        }
-
-        else
-        {
-            Sr.sprite = arrSprite[1];
-            Invoke("defaultSprite", 0.1f);
+            // 몬스터 죽는 애니메이션 동작예정
         }
 
     }
@@ -69,10 +73,12 @@ public class Enemy : MonoBehaviour
         }
 
         Vector3 playerPos = trsplayer.position;     
+        float distance = Vector3.Distance(playerPos, transform.position);      
 
         float move_x = (playerPos.x - transform.position.x);
         float move_y = (playerPos.y - transform.position.y);
-        if (move_x < 0)
+
+        if (move_x < 0) //몬스터 방향 전환
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
@@ -81,15 +87,9 @@ public class Enemy : MonoBehaviour
             transform.localScale = new Vector3(1, 1, 1);
         }
 
-        float distance = Vector3.Distance(transform.position, playerPos);
-
-        if (distance > 1)
+        if(distance > 2) // 몬스터와 플레이어간 거리유지
         {
             transform.position += new Vector3( move_x , move_y ,0) * enemySpeed * Time.deltaTime;
         }
-    }
-    public int GetEnemyDamage()
-    {
-        return enemyDamage;
-    }
+    }  
 }

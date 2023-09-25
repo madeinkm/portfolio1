@@ -8,10 +8,14 @@ public class Weapon : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-       if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
             Enemy sc = collision.gameObject.GetComponent<Enemy>();
             sc.EnemyHit(damage);
         }
+    }
+    public float WeaponDamage()
+    {
+        return damage;
     }
 }
