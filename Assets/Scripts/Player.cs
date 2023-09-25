@@ -16,18 +16,9 @@ public class Player : MonoBehaviour
 
     [Header("Hp연출")]
     [SerializeField] private PlayerHp playerHp;
+    Weapon weaponsc;
 
     
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            Enemy sc = collision.GetComponent<Enemy>();
-            int damage = sc.GetDamge();
-            Hit(damage);
-        }
-    }
-
     void Start()
     {
         trsHands.localEulerAngles = Vector3.zero;
@@ -35,6 +26,7 @@ public class Player : MonoBehaviour
 
         m_curHp = m_maxHp;
         playerHp.SetPlayerHp(m_curHp, m_maxHp);
+        weaponsc = GetComponentInChildren<Weapon>();
     }
 
     
@@ -55,6 +47,28 @@ public class Player : MonoBehaviour
             //GAME OVER 되는 코드 작성 예정. 묘비 애니메이션 동작 예정.
         }
 
+    }
+    public void TriggerEnter(eHitType _type, Collider2D _coll) // 플레이어와 무기에 둘다 콜라이더가 있어서 hitbox로 분리해줌
+    {
+        switch (_type)
+        {
+            case eHitType.PlayerCheck:
+                if (_coll.gameObject.tag == "Enemy")
+                {
+                    Enemy sc = _coll.gameObject.GetComponent<Enemy>();
+                    int damage = sc.GetDamge();
+                    Hit(damage);
+                }
+                break;
+            case eHitType.WeaponCheck:
+                if (_coll.gameObject.tag == "Enemy")
+                {                                        
+                    Enemy sc = _coll.gameObject.GetComponent<Enemy>();
+                    float damage = weaponsc.WeaponDamage();
+                    sc.EnemyHit(damage);
+                }
+                break;
+        }
     }
 
     private void moving() // 플레이어 수동움직임

@@ -43,6 +43,11 @@ public class Enemy : MonoBehaviour
     //        float damage = sc.WeaponDamage();
     //        EnemyHit(damage);
     //    }
+    //    //else if (collision.gameObject.tag == "Player")
+    //    //{
+    //    //한번 시도해보기 Event와 script 중 누가 먼저 동작할지 확인해보자
+
+    //    //}
     //}
 
     void Update()
