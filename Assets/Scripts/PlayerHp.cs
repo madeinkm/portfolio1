@@ -19,7 +19,7 @@ public class PlayerHp : MonoBehaviour
 
     void Update()
     {
-        checkPosition();
+        //checkPosition();
         checkHpBar();        
 
     }
@@ -29,10 +29,10 @@ public class PlayerHp : MonoBehaviour
         HpFront.fillAmount = (float)_curHp / _maxHp;
     }
 
-    private void checkPosition()
-    {
-        transform.position = trsPlayer.position + new Vector3(-8.0f, 5.0f, 0);
-    }
+    //private void checkPosition()
+    //{
+    //    transform.position = trsPlayer.position + new Vector3(-8.0f, 5.0f, 0); // 캔버스를 overlay로 하면 고정된 위치에 있음
+    //}
     private void checkHpBar()
     {
         if (HpFront.fillAmount < HpBack.fillAmount)// HP가 깎이면 HP바가 줄어들고 그 뒤 연출도 같이 줄어듬

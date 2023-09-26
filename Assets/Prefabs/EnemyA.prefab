@@ -123,7 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 0
   enemyHp: 5
-  enemySpeed: 1
+  enemySpeed: 0.1
   enemyDamage: 5
 --- !u!50 &4904507188558043035
 Rigidbody2D:

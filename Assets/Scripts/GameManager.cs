@@ -14,7 +14,12 @@ public class GameManager : MonoBehaviour
     private int checkSpawnLimit = 16;
     private int checkSpwan = 0; // 적 개체수 확인
     private int enemycount; //
+    private bool prepared = false;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -24,8 +29,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        spawnEnmemy();
-        enemycount = trsDynamicObject.childCount;            
+        spawnEnmemy();            
         
     }    
 
@@ -43,12 +47,23 @@ public class GameManager : MonoBehaviour
             spawnPosition.y += fRand_y;
 
             GameObject obj = Instantiate(objEnemy, spawnPosition, Quaternion.identity, trsDynamicObject);
-        }        
-        checkSpwan++;
+            prepared = false;
+            
+            checkSpwan++;
+        }
+        else if (prepared == false)
+        {
+            prepared = true;
+        }
     }
 
     public int EnemyCount()
     {
-        return enemycount;
+        return trsDynamicObject.childCount;
+    }
+
+    public bool isPrepared()
+    { 
+        return prepared;
     }
 }

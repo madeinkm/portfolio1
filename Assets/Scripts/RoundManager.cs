@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,9 +13,10 @@ public class RoundManager : MonoBehaviour
     private float gameoverTimer = 60.0f;
     private TMP_Text textTimer;
 
-    private int round = 0;
     private int max_round = 3;
-    private int cur_round;
+    private int cur_round = 0;
+
+    private int enemycount;
 
     private void Awake()
     {
@@ -29,19 +31,37 @@ public class RoundManager : MonoBehaviour
 
     void Update()
     {
-        checkroundBar();
-        checkTimer();
+        checkround();
+        checkRoundTimer();
+        enemycount = GameManager.Instance.EnemyCount();
+        //Debug.Log(enemycount);
+
     }
     public void Setround(int _cur_round, int _max_round)
     {
-        roundFront.fillAmount = _cur_round / _max_round;
+        roundFront.fillAmount = (float)_cur_round / _max_round;
     }
-    private void checkroundBar()
+
+    private void checkround()
     {
-        
+        Setround(cur_round, max_round);
+
+        if (GameManager.Instance.isPrepared() == true)
+        {
+            if (cur_round < max_round && enemycount <= 0)
+            {
+                cur_round ++;
+                Setround(cur_round, max_round);
+            }            
+        }
+
+        else if (cur_round >= max_round)
+        {
+            //스테이지가 넘어가면서 roundbar는 다시 초기화.
+        }        
     }    
 
-    private void checkTimer()
+    private void checkRoundTimer()
     {
         if (gameoverTimer > 0)
         {
