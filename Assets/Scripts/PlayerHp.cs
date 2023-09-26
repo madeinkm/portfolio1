@@ -23,6 +23,12 @@ public class PlayerHp : MonoBehaviour
         checkHpBar();        
 
     }
+
+    public void SetPlayerHp(int _curHp, int _maxHp)
+    {
+        HpFront.fillAmount = (float)_curHp / _maxHp;
+    }
+
     private void checkPosition()
     {
         transform.position = trsPlayer.position + new Vector3(-8.0f, 5.0f, 0);
@@ -41,10 +47,5 @@ public class PlayerHp : MonoBehaviour
         {
             HpBack.fillAmount = HpFront.fillAmount;
         }
-    }
-
-    public void SetPlayerHp(int _curHp, int _maxHp)
-    { 
-        HpFront.fillAmount = (float)_curHp / _maxHp;
-    }
+    }  
 }

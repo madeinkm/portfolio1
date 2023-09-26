@@ -43,8 +43,8 @@ public class Player : MonoBehaviour
 
         if (m_curHp <= 0)
         {
+            //묘비 애니메이션 동작 예정. GAME OVER 되는 코드 작성 예정.
             Destroy(gameObject);
-            //GAME OVER 되는 코드 작성 예정. 묘비 애니메이션 동작 예정.
         }
 
     }

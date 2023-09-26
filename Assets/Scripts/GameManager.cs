@@ -10,10 +10,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> listEnemy;
     private Transform spawnPoint;
     [SerializeField] private Transform trsDynamicObject;
-
-    private int round = 1;
+            
     private int checkSpawnLimit = 16;
     private int checkSpwan = 0; // 적 개체수 확인
+    private int enemycount; //
 
 
     void Start()
@@ -24,18 +24,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        //checkspwan = trsDynamicObject.childCount;              
         spawnEnmemy();
+        enemycount = trsDynamicObject.childCount;            
+        
+    }    
 
-    }
-
-    private void setRound(int _round)
-    {
-        round = _round;
-        checkSpawnLimit = 10 * _round;
-    }
-
-    private void spawnEnmemy() //몬스터 생성
+    public void spawnEnmemy() //몬스터 생성
     {
         if(checkSpwan < checkSpawnLimit)
         {
@@ -51,5 +45,10 @@ public class GameManager : MonoBehaviour
             GameObject obj = Instantiate(objEnemy, spawnPosition, Quaternion.identity, trsDynamicObject);
         }        
         checkSpwan++;
+    }
+
+    public int EnemyCount()
+    {
+        return enemycount;
     }
 }
