@@ -62,6 +62,7 @@ public class Enemy : MonoBehaviour
     public void EnemyHit(float _damage)
     {
         enemyHp -= _damage;
+        // 몬스터 히트애니메이션 동작예정
 
         if (enemyHp <= 0)
         {

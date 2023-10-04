@@ -31,10 +31,8 @@ public class RoundManager : MonoBehaviour
 
     void Update()
     {
-        checkround();
         checkRoundTimer();
-        enemycount = GameManager.Instance.EnemyCount();
-        //Debug.Log(enemycount);
+        enemycount = GameManager.Instance.EnemyCount();        
 
     }
     public void Setround(int _cur_round, int _max_round)
@@ -42,23 +40,19 @@ public class RoundManager : MonoBehaviour
         roundFront.fillAmount = (float)_cur_round / _max_round;
     }
 
-    private void checkround()
-    {
-        Setround(cur_round, max_round);
-
-        if (GameManager.Instance.isPrepared() == true)
+    public void checkround()
+    {     
+        if (GameManager.Instance.isPrepared() == true && cur_round < max_round)
         {
-            if (cur_round < max_round && enemycount <= 0)
+            cur_round++;
+            Setround(cur_round, max_round);
+
+            if (cur_round >= max_round) //3round 종료시 초기화
             {
-                cur_round ++;
+                cur_round = 0;
                 Setround(cur_round, max_round);
-            }            
-        }
-
-        else if (cur_round >= max_round)
-        {
-            //스테이지가 넘어가면서 roundbar는 다시 초기화.
-        }        
+            }
+        }                
     }    
 
     private void checkRoundTimer()
@@ -74,6 +68,5 @@ public class RoundManager : MonoBehaviour
 
             textTimer.text = $"{(int)gameoverTimer}s";
         }
-    }
-    
+    }    
 }

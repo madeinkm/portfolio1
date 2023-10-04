@@ -21,7 +21,4 @@ public class HitBox : MonoBehaviour
     {
         player.TriggerEnter(hitType, collision);
     }
-
-
-
 }

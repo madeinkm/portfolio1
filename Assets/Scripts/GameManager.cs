@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager Instance;
+    private RoundManager roundManager;
 
     [SerializeField] private List<GameObject> listEnemy;
     private Transform spawnPoint;
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         spawnPoint = transform.GetChild(0);
-
+        roundManager = FindAnyObjectByType<RoundManager>();
     }
 
     void Update()
@@ -32,10 +33,13 @@ public class GameManager : MonoBehaviour
         spawnEnmemy();            
         
     }    
-
+    public void InHitSpawnCount()
+    {
+        checkSpwan = 0;
+    }
     public void spawnEnmemy() //몬스터 생성
     {
-        if(checkSpwan < checkSpawnLimit)
+        if (checkSpwan < checkSpawnLimit)
         {
             int iRand = Random.Range(0, listEnemy.Count);
             GameObject objEnemy = listEnemy[iRand];
@@ -48,13 +52,20 @@ public class GameManager : MonoBehaviour
 
             GameObject obj = Instantiate(objEnemy, spawnPosition, Quaternion.identity, trsDynamicObject);
             prepared = false;
-            
+
             checkSpwan++;
+
         }
         else if (prepared == false)
         {
             prepared = true;
         }
+        else if (EnemyCount() == 0)
+        {
+            roundManager.checkround();
+            checkSpwan = 0;
+        }
+        
     }
 
     public int EnemyCount()
