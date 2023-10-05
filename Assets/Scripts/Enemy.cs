@@ -22,7 +22,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float enemyHp = 5.0f;
     [SerializeField] private float enemySpeed = 1.0f;
     [SerializeField] private int enemyDamage = 5;
+
+    [SerializeField] private GameObject objDead;
     
+
 
     private Transform trsplayer;
     
@@ -66,11 +69,20 @@ public class Enemy : MonoBehaviour
 
         if (enemyHp <= 0)
         {
-            Destroy(gameObject);
-            // 몬스터 죽는 애니메이션 동작예정
-        }
-
+            DeadEnemy();
+            GameManager.Instance.CreatItem(transform.position);
+            
+        }       
     }
+    public void DeadEnemy()
+    {
+        Destroy(gameObject);
+
+        GameObject obj = Instantiate(objDead, transform.position, Quaternion.identity, transform.parent);
+        EnemyDead sc = obj.GetComponent<EnemyDead>();
+    }
+   
+
     private void moving() //적움직임, 플레이어에게 다가감
     {
         if (trsplayer == null)

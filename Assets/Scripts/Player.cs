@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
                 }
                 break;
         }
-    }
+    }    
 
     private void moving() // 플레이어 수동움직임
     {

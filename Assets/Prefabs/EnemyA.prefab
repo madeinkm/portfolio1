@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4920340825390507180
 SpriteRenderer:
@@ -125,6 +125,7 @@ MonoBehaviour:
   enemyHp: 5
   enemySpeed: 0.1
   enemyDamage: 5
+  objDead: {fileID: 3572140581406252799, guid: a114cc98da8c12d4b8d3738f9f39ee04, type: 3}
 --- !u!50 &4904507188558043035
 Rigidbody2D:
   serializedVersion: 4

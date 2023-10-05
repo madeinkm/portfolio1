@@ -125,6 +125,7 @@ MonoBehaviour:
   enemyHp: 5
   enemySpeed: 0.1
   enemyDamage: 5
+  objDead: {fileID: 2628495867737708289, guid: aa4e964d3601b06479b7e16cf610907d, type: 3}
 --- !u!50 &2614062985425219473
 Rigidbody2D:
   serializedVersion: 4

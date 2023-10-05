@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal.VersionControl;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -16,6 +17,11 @@ public class GameManager : MonoBehaviour
     private int checkSpwan = 0; // 적 개체수 확인
     private int enemycount; //
     private bool prepared = false;
+
+    [Header("아이템")]
+    [SerializeField] private List<GameObject> listItem;
+
+    private Transform trsplayer;
 
     private void Awake()
     {
@@ -64,8 +70,13 @@ public class GameManager : MonoBehaviour
         {
             roundManager.checkround();
             checkSpwan = 0;
-        }
-        
+        }        
+    }
+    public void CreatItem(Vector3 _pos)
+    {
+        int rand = Random.Range(0, listItem.Count);
+        GameObject instObj = listItem[rand];
+        Instantiate(instObj, _pos, Quaternion.Euler(Vector3.zero), trsDynamicObject);
     }
 
     public int EnemyCount()
@@ -76,5 +87,9 @@ public class GameManager : MonoBehaviour
     public bool isPrepared()
     { 
         return prepared;
+    }
+    public Transform GetPlayerTransform()
+    {
+        return trsplayer;
     }
 }
