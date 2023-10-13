@@ -24,7 +24,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int enemyDamage = 5;
 
     [SerializeField] private GameObject objDead;
-    
+    private Animator anim;
+    private bool isHit = false;
+
+
 
 
     private Transform trsplayer;
@@ -32,6 +35,7 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         trsplayer = FindObjectOfType<Player>().transform;
+        anim = GetComponent<Animator>();
     }
 
     void Start()
@@ -56,7 +60,9 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         moving();
-       
+        
+
+
     }
     public int GetDamge()
     {
@@ -64,7 +70,12 @@ public class Enemy : MonoBehaviour
     }
     public void EnemyHit(float _damage)
     {
-        enemyHp -= _damage;
+        if(enemyHp > 0)
+        {
+            enemyHp -= _damage;
+            isHit = true;
+            doHitAnim();
+        }       
         // 몬스터 히트애니메이션 동작예정
 
         if (enemyHp <= 0)
@@ -109,5 +120,16 @@ public class Enemy : MonoBehaviour
         {
             transform.position += new Vector3( move_x , move_y ,0) * enemySpeed * Time.deltaTime;
         }
-    }  
+    }
+    private void doHitAnim()
+    {
+        if (isHit == true)
+        {
+            anim.SetBool("Hit", true);
+        }
+        else if(isHit == false)
+        {
+            anim.SetBool("Hit", false);
+        }        
+    }
 }
