@@ -1,5 +1,6 @@
  using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -36,18 +37,7 @@ public class Player : MonoBehaviour
         attack();
         doanim();
     }
-    public void Hit(int _damage)
-    {
-        m_curHp -= _damage;
-        playerHp.SetPlayerHp(m_curHp, m_maxHp);
-
-        if (m_curHp <= 0)
-        {
-            //묘비 애니메이션 동작 예정. GAME OVER 되는 코드 작성 예정.
-            Destroy(gameObject);
-        }
-
-    }
+        
     public void TriggerEnter(eHitType _type, Collider2D _coll) // 플레이어와 무기에 둘다 콜라이더가 있어서 hitbox로 분리해줌
     {
         switch (_type)
@@ -69,7 +59,18 @@ public class Player : MonoBehaviour
                 }
                 break;
         }
-    }    
+    }
+    public void Hit(int _damage)
+    {
+        m_curHp -= _damage;
+        playerHp.SetPlayerHp(m_curHp, m_maxHp);
+
+        if (m_curHp <= 0)
+        {
+            //묘비 애니메이션 동작 예정. GAME OVER 되는 코드 작성 예정.
+            Destroy(gameObject);
+        }
+    }
 
     private void moving() // 플레이어 수동움직임
     {

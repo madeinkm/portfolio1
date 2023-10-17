@@ -26,13 +26,13 @@ public class RoundManager : MonoBehaviour
     }
     void Start()
     {
-
+        
     }
 
     void Update()
     {
         checkRoundTimer();
-        enemycount = GameManager.Instance.EnemyCount();        
+        enemycount = GameManager.Instance.EnemyCount();
 
     }
     public void Setround(int _cur_round, int _max_round)
