@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject objSkill;
     [SerializeField] private GameObject objDungeon;
 
+    private bool isAuto = false;
+
 
     private void Awake()
     {
@@ -22,8 +24,22 @@ public class UIManager : MonoBehaviour
         arrayBtn[2].onClick.AddListener(callinventory);
         arrayBtn[3].onClick.AddListener(callskill);
         arrayBtn[4].onClick.AddListener(calldungeon);
+        arrayBtn[5].onClick.AddListener(Auto);
+        //arrayBtn[6].onClick.AddListener(Skill1);
+        //arrayBtn[7].onClick.AddListener(Skill2);
+        //arrayBtn[8].onClick.AddListener(Skill3);
+        //arrayBtn[9].onClick.AddListener(Skill4);
+        //arrayBtn[10].onClick.AddListener(Skill5);
+        //arrayBtn[11].onClick.AddListener(Skill6);
+        //arrayBtn[12].onClick.AddListener(Skill7);
+        //arrayBtn[13].onClick.AddListener(Skill8);
 
     }
+    public bool IsAuto()
+    {
+        return isAuto;
+    }
+
     private void Start()
     {
         objStatus.SetActive(false);
@@ -52,5 +68,16 @@ public class UIManager : MonoBehaviour
     {
 
     }
+    private void Auto()
+    {
+        if (isAuto == false)
+        {
+            isAuto = true;
 
+        }
+        else if (isAuto == true)
+        {
+            isAuto = false;
+        }
+    }
 }

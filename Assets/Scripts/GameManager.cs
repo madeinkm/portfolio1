@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> listEnemy;
     private Transform spawnPoint;
     [SerializeField] private Transform trsDynamicObject;
-            
+    [SerializeField] private Transform trsItemObject;
+
     private int checkSpawnLimit = 16;
     private int checkSpwan = 0; // 적 개체수 확인
     private int enemycount; //
@@ -76,7 +77,7 @@ public class GameManager : MonoBehaviour
     {
         int rand = Random.Range(0, listItem.Count);
         GameObject instObj = listItem[rand];
-        Instantiate(instObj, _pos, Quaternion.Euler(Vector3.zero), trsDynamicObject);
+        Instantiate(instObj, _pos, Quaternion.Euler(Vector3.zero), trsItemObject);
     }
 
     public int EnemyCount()

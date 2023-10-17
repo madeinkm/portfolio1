@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerHp playerHp;
     Weapon weaponsc;
 
+    [SerializeField] private UIManager uiManager;
+
     
     void Start()
     {
@@ -28,8 +30,8 @@ public class Player : MonoBehaviour
         m_curHp = m_maxHp;
         playerHp.SetPlayerHp(m_curHp, m_maxHp);
         weaponsc = GetComponentInChildren<Weapon>();
+        
     }
-
     
     void Update()
     {
@@ -72,32 +74,45 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void moving() // 플레이어 수동움직임
+    private void moving() // 플레이어 자동,수동움직임
     {
-        float move_x = Input.GetAxisRaw("Horizontal") * Time.deltaTime; //입력키 설정
-        float move_y = Input.GetAxisRaw("Vertical") * Time.deltaTime;
-
-        transform.position += new Vector3(move_x, move_y) * m_speed;
-
-        if (move_x > 0) // 입력 방향에 따른 캐릭터 방향설정
+        if (uiManager.IsAuto() == false)
         {
-           transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            float move_x = Input.GetAxisRaw("Horizontal") * Time.deltaTime; //입력키 설정
+            float move_y = Input.GetAxisRaw("Vertical") * Time.deltaTime;
+
+            transform.position += new Vector3(move_x, move_y) * m_speed;
+
+            if (move_x > 0) // 입력 방향에 따른 캐릭터 방향설정
+            {
+                transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            }
+            else if (move_x < 0)
+            {
+                transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+            }
         }
-        else if (move_x < 0)
+        else if (uiManager.IsAuto() == true)
         {
-            transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+            // 자동이동 코드
         }
     }
-
-    private void attack() // 플레이어 수동공격
+    private void attack() // 플레이어 자동,수동 공격
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (uiManager.IsAuto() == false)
         {
-            trsHands.localEulerAngles = new Vector3(0, 0, -50.0f);        
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                trsHands.localEulerAngles = new Vector3(0, 0, -50.0f);
+            }
+            else if (Input.GetKeyUp(KeyCode.Space))
+            {
+                trsHands.localEulerAngles = Vector3.zero;
+            }
         }
-        else if (Input.GetKeyUp(KeyCode.Space))
+        else if (uiManager.IsAuto() == true)
         {
-            trsHands.localEulerAngles = Vector3.zero;
+            // 자동공격 코드
         }
     }
     private void doanim()

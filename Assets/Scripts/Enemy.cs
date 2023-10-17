@@ -25,9 +25,6 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private GameObject objDead;
     private Animator anim;
-    private bool isHit = false;
-
-
 
 
     private Transform trsplayer;
@@ -59,8 +56,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        moving();
-        
+        moving();       
 
 
     }
@@ -73,11 +69,9 @@ public class Enemy : MonoBehaviour
         if(enemyHp > 0)
         {
             enemyHp -= _damage;
-            isHit = true;
             doHitAnim();
         }       
-        // 몬스터 히트애니메이션 동작예정
-
+        
         if (enemyHp <= 0)
         {
             DeadEnemy();
@@ -123,13 +117,13 @@ public class Enemy : MonoBehaviour
     }
     private void doHitAnim()
     {
-        if (isHit == true)
-        {
-            anim.SetBool("Hit", true);
-        }
-        else if(isHit == false)
-        {
-            anim.SetBool("Hit", false);
-        }        
+        anim.SetTrigger("Hit");
+        //if (isHit == true)
+        //{
+        //}
+        //else if(isHit == false)
+        //{
+        //    anim.SetBool("Hit", false);
+        //}        
     }
 }
