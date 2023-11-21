@@ -29,10 +29,12 @@ public class Enemy : MonoBehaviour
 
     private Transform trsplayer;
     
+    
     private void Awake()
     {
         trsplayer = FindObjectOfType<Player>().transform;
         anim = GetComponent<Animator>();
+
     }
 
     void Start()
@@ -109,8 +111,9 @@ public class Enemy : MonoBehaviour
         {
             transform.localScale = new Vector3(1, 1, 1);
         }
+        
 
-        if(distance > 2) // 몬스터와 플레이어간 거리유지
+        if (distance > 2) // 몬스터와 플레이어간 거리유지
         {
             transform.position += new Vector3( move_x , move_y ,0) * enemySpeed * Time.deltaTime;
         }

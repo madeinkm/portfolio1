@@ -20,8 +20,17 @@ public class Player : MonoBehaviour
     Weapon weaponsc;
 
     [SerializeField] private UIManager uiManager;
+        
+    private Transform trsEnemy;
+    private float attTime = 2.0f;
+    private float attTimer;
 
-    
+
+    private void Awake()
+    {
+        
+    }
+
     void Start()
     {
         trsHands.localEulerAngles = Vector3.zero;
@@ -30,7 +39,8 @@ public class Player : MonoBehaviour
         m_curHp = m_maxHp;
         playerHp.SetPlayerHp(m_curHp, m_maxHp);
         weaponsc = GetComponentInChildren<Weapon>();
-        
+
+        trsEnemy = GameManager.Instance.GetEnemyTransform();
     }
     
     void Update()
@@ -82,19 +92,25 @@ public class Player : MonoBehaviour
             float move_y = Input.GetAxisRaw("Vertical") * Time.deltaTime;
 
             transform.position += new Vector3(move_x, move_y) * m_speed;
-
-            if (move_x > 0) // 입력 방향에 따른 캐릭터 방향설정
-            {
-                transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            }
-            else if (move_x < 0)
-            {
-                transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
-            }
+                        
+            movedir(move_x);
         }
         else if (uiManager.IsAuto() == true)
         {
-            // 자동이동 코드
+            if (trsEnemy == null)
+            {
+                return;
+            }
+
+            Vector3 enemyPos = trsEnemy.position;
+            float distance = Vector3.Distance(enemyPos, transform.position);
+
+            float move_x = (enemyPos.x - transform.position.x);
+            float move_y = (enemyPos.y - transform.position.y);
+
+            transform.position += new Vector3(move_x, move_y) / 10 * m_speed * Time.deltaTime;
+            
+            movedir(move_x);
         }
     }
     private void attack() // 플레이어 자동,수동 공격
@@ -112,7 +128,7 @@ public class Player : MonoBehaviour
         }
         else if (uiManager.IsAuto() == true)
         {
-            // 자동공격 코드
+            //자동공격 코드
         }
     }
     private void doanim()
@@ -121,5 +137,17 @@ public class Player : MonoBehaviour
         float move_y = Input.GetAxisRaw("Vertical");
         anim.SetInteger("move_x", (int)move_x);
         anim.SetInteger("move_y", (int)move_y);        
-    }    
+    }
+
+    private void movedir(float _move_x) //방향에 따른 캐릭터 방향설정
+    {
+        if (_move_x > 0)
+        {
+            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        }
+        else if (_move_x < 0)
+        {
+            transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+        }
+    }
 }

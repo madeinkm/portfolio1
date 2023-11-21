@@ -93,4 +93,9 @@ public class GameManager : MonoBehaviour
     {
         return trsplayer;
     }
+
+    public Transform GetEnemyTransform()
+    {
+        return trsDynamicObject;
+    }
 }
